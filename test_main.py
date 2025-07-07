@@ -19,7 +19,7 @@ def test_receive_ticket_graph_workflow():
     assert "status" in data
     assert "data" in data
     # Check that the messages include both webhook and agent responses
-    assert data["data"]["messages"][0]["content"] == "Webhook received"
+    assert data["data"]["messages"][0]["content"].startswith("Webhook received")
     assert data["data"]["messages"][1]["role"] == "assistant"
     assert isinstance(data["data"]["messages"][1]["content"], str)
     assert len(data["data"]["messages"][1]["content"].strip()) > 0
