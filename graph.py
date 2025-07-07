@@ -1,19 +1,37 @@
 from langgraph.graph import StateGraph, START, END
 from state import SupportTicketState
 from agent import run_agent
+from uuid import uuid4
+import datetime
 
 graph_builder = StateGraph(SupportTicketState)
 
 def webhooks_node(state: SupportTicketState):
     print("Webhooks node executed")
-    # Simulate receiving and logging a webhook event (e.g., ticket creation)
-    # You can expand this to actually process incoming webhooks
-    return {**state, "status": "webhook_received", "messages": state.get("messages", []) + [{"role": "system", "content": "Webhook received"}]}
+    ticket = state.get("ticket", {})
+    ticket.setdefault("created_at", datetime.datetime.now().isoformat())
+    if "id" not in ticket:
+        ticket["id"] = str(uuid4())
+    return {
+        **state,
+        "ticket": ticket,
+        "status": "webhook_received",
+        "messages": state.get("messages", []) + [{"role": "system", "content": f"Webhook received for ticket {ticket['id']}"}]
+    }
 
 def agent_node(state: SupportTicketState):
     print("Agent node executed")
     agent_response = run_agent({"prompt": state["ticket"].get("description", "")})
-    return {**state, "status": agent_response["action"], "messages": state.get("messages", []) + [{"role": "assistant", "content": agent_response["reason"]}]}
+    return {
+        **state,
+        "status": agent_response["action"],
+        "messages": state.get("messages", []) + [
+            {
+                "role": "assistant",
+                "content": agent_response["reason"]
+            }
+        ]
+    }
 
 # Nodes
 graph_builder.add_node("webhooks_node", webhooks_node)
