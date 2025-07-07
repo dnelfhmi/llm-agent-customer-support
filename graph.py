@@ -11,6 +11,7 @@ def webhooks_node(state: SupportTicketState):
     ticket = state.get("ticket", {})
     ticket.setdefault("created_at", datetime.datetime.now().isoformat())
     if "id" not in ticket:
+        print("Warning: ticket ID missing, generating new one.")
         ticket["id"] = str(uuid4())
     return {
         **state,
