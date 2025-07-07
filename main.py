@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from agent import run_agent
+from graph import graph
 
 app = FastAPI()
 
@@ -12,5 +12,13 @@ class Ticket(BaseModel):
 @app.post("/tickets")
 async def receive_ticket(ticket: Ticket):
     print(f"Received ticket: {ticket}")
-    agent_response = run_agent(ticket)
-    return {"status": "received", "data": agent_response}
+
+    # Construct initial state for the graph
+    state = {
+        "ticket": ticket.model_dump(),
+        "status": "",
+        "messages": []
+    }
+
+    final_state = graph.invoke(state)
+    return {"status": final_state["status"], "data": final_state}

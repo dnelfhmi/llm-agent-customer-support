@@ -1,15 +1,27 @@
 from langgraph.graph import StateGraph, START, END
 from state import SupportTicketState
+from agent import run_agent
 
 graph_builder = StateGraph(SupportTicketState)
 
-def dummy_node(state: SupportTicketState):
-    print("Dummy node executed")
-    return {"messages": [{"role": "assistant", "content": "Hello from dummy node!"}]}
+def webhooks_node(state: SupportTicketState):
+    print("Webhooks node executed")
+    # Simulate receiving and logging a webhook event (e.g., ticket creation)
+    # You can expand this to actually process incoming webhooks
+    return {**state, "status": "webhook_received", "messages": state.get("messages", []) + [{"role": "system", "content": "Webhook received"}]}
 
-graph_builder.add_node("dummy_node", dummy_node)
+def agent_node(state: SupportTicketState):
+    print("Agent node executed")
+    agent_response = run_agent({"prompt": state["ticket"].get("description", "")})
+    return {**state, "status": agent_response["action"], "messages": state.get("messages", []) + [{"role": "assistant", "content": agent_response["reason"]}]}
 
-graph_builder.add_edge(START, "dummy_node")
-graph_builder.add_edge("dummy_node", END)
+# Nodes
+graph_builder.add_node("webhooks_node", webhooks_node)
+graph_builder.add_node("agent_node", agent_node)
+
+# Edges
+graph_builder.add_edge(START, "webhooks_node")
+graph_builder.add_edge("webhooks_node", "agent_node")
+graph_builder.add_edge("agent_node", END)
 
 graph = graph_builder.compile()
