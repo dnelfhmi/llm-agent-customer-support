@@ -72,5 +72,28 @@ Every step is logged for traceability and future fine-tuning.
 
 ### 📈 What's next?
 
-TBD
+TO-DO: 
+
+⚠️ Pinecone vector DB integration
+
+⚠️ Real-time tools (or any tools to add)
+
+⚠️ Generating embedding and retrieving knowledge base for similarity search
+
+⚠️ Action routing based on LLM agent suggestion
+
+## Setup
+
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Create a `.env` file in the project root with the following content:
+   ```env
+   OPENAI_API_KEY=your-openai-key-here
+   ```
+   **Do NOT commit your `.env` file to git.**
+
+3. Run the agent as needed.
 
