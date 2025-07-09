@@ -82,6 +82,8 @@ TO-DO:
 
 ⚠️ Action routing based on LLM agent suggestion
 
+⚠️ UI for easy usage and navigation
+
 ## Setup
 
 1. Install dependencies:
@@ -95,5 +97,5 @@ TO-DO:
    ```
    **Do NOT commit your `.env` file to git.**
 
-3. Run the agent as needed.
+3. POST via /tickets endpoints.
 
