@@ -1,7 +1,7 @@
-## 🚀 Smart Support Agent: Autonomous Ticket Workflow with LangGraph, FastAPI, SQLite and PineCone
+## 🚀 Smart Support Agent: Autonomous Ticket Workflow with OpenAI GPT, LangGraph, FastAPI, SQLite and PineCone
 
 A repository for documenting the development of agentic LLM customer support.
-An autonomous agentic support ticket workflow built with FastAPI, LangGraph, and Pinecone.
+An autonomous agentic support ticket workflow built with OpenAI GPT model, FastAPI, LangGraph, and Pinecone.
 
 -----
 
