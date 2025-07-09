@@ -75,11 +75,9 @@ Every step is logged for traceability and future fine-tuning.
 
 TO-DO: 
 
-⚠️ Pinecone vector DB integration
+⚠️ Prompt engineering for agent in-context learning 
 
 ⚠️ Real-time tools (or any tools to add)
-
-⚠️ Generating embedding and retrieving knowledge base for similarity search
 
 ⚠️ Action routing based on LLM agent suggestion
 
