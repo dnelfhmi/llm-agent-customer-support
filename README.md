@@ -1,4 +1,4 @@
-## 🚀 Smart Support Agent — Autonomous Ticket Workflow with LangGraph & FastAPI
+## 🚀 Smart Support Agent: Autonomous Ticket Workflow with LangGraph, FastAPI, SQ3Lite and PineCone
 
 A repository for documenting the development of agentic LLM customer support.
 An autonomous agentic support ticket workflow built with FastAPI, LangGraph, and Pinecone.
