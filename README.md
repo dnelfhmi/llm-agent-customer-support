@@ -1,4 +1,4 @@
-## 🚀 Smart Support Agent: Autonomous Ticket Workflow with LangGraph, FastAPI, SQ3Lite and PineCone
+## 🚀 Smart Support Agent: Autonomous Ticket Workflow with LangGraph, FastAPI, SQLite and PineCone
 
 A repository for documenting the development of agentic LLM customer support.
 An autonomous agentic support ticket workflow built with FastAPI, LangGraph, and Pinecone.
@@ -7,7 +7,8 @@ An autonomous agentic support ticket workflow built with FastAPI, LangGraph, and
 
 ### 🤖 What is this project?
 
-This is an agentic customer support ticket system built from scratch (no low-code tools like n8n).
+This agentic customer support system uses OpenAI's `gpt-3.5-turbo` as its reasoning engine ("brain") and `text-embedding-ada-002` for semantic search, combined with Pinecone for vector storage and retrieval. The system also features persistent agent memory, stored in a local SQLite database, allowing it to maintain and recall conversation context and ticket history across interactions for more coherent and context-aware support responses.
+
 It shows how to build an LLM-powered support agent that:
 
 	•	Understands incoming tickets
@@ -15,7 +16,7 @@ It shows how to build an LLM-powered support agent that:
 	•	Uses real-time tools (like courier tracking)
 	•	Keeps conversation memory
 	•	Plans actions autonomously (auto-reply, escalate, or human review)
-	•	Executes routing — all in Python with LangGraph, Pinecone, and FastAPI.
+	•	Executes routing, all in Python with LangGraph, Pinecone, and FastAPI.
 
 -----
 
@@ -94,6 +95,7 @@ TO-DO:
 2. Create a `.env` file in the project root with the following content:
    ```env
    OPENAI_API_KEY=your-openai-key-here
+   PINECONE_API_KEY=your-pinecone-key-here
    ```
    **Do NOT commit your `.env` file to git.**
 
