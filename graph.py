@@ -22,14 +22,26 @@ def webhooks_node(state: SupportTicketState):
 
 def agent_node(state: SupportTicketState):
     print("Agent node executed")
-    agent_response = run_agent({"prompt": state["ticket"].get("description", "")})
+    ticket = state.get("ticket", {})
+    ticket_id = ticket.get("id", "")
+    
+    agent_response = run_agent({
+        "prompt": ticket.get("description", ""),
+        "ticket_id": ticket_id
+    })
+    
+    # Include the agent's reply in the message if it's an auto_reply
+    message_content = agent_response["reason"]
+    if agent_response["action"] == "auto_reply" and agent_response.get("reply"):
+        message_content = agent_response["reply"]
+    
     return {
         **state,
         "status": agent_response["action"],
         "messages": state.get("messages", []) + [
             {
                 "role": "assistant",
-                "content": agent_response["reason"]
+                "content": message_content
             }
         ]
     }
